@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "course_work_3(04.2023)"
+version = "0.1.0"
+description = ""
+authors = ["Mikhail Polyakov PyCharm <mikhapol@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
