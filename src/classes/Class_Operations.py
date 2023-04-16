@@ -3,7 +3,7 @@ class Operation:
         self.id = id
         self.state = state
         self.date = date
-        self.operationAmount = operationAmount
+        self.operation_amount = operationAmount
         self.description = description
         self.from_operation = from_operation
         self.to_operation = to_operation
@@ -40,22 +40,23 @@ class Operation:
             else:
                 return f'{" ".join(self.get_to_operation().split()[:-1])} ' \
                        f"{numbers[:4]} {numbers[4:6]}** **** {numbers[-4:]}"
-        return "Нет данных"
+        return self.description
 
     def get_description(self):
         if self.description is not None:
             return self.description
         return ""
 
-    def get_operationAmount(self):
-        return self.operationAmount
+    def get_operation_amount(self):
+        return self.operation_amount
+
     def get_date(self):
         return self.date
 
     def get_from_operation(self):
         if self.from_operation is not None:
             return self.from_operation
-        return "Открытие вклада"
+        return self.description
 
     def get_from_operation_mask(self):
         if (len(self.get_from_operation()) != 0) and self.get_from_operation().split()[-1].isdigit() is True:
@@ -65,7 +66,7 @@ class Operation:
             else:
                 return f'{" ".join(self.from_operation.split()[:-1])} ' \
                        f'{numbers[:4]} {numbers[4:6]}** **** {numbers[-4:]}'
-        return "Открытие вклада"
+        return self.description
 
     def __repr__(self):
         return f"Дата: self.date={self.date}, " \

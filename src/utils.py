@@ -65,13 +65,22 @@ def status_executed(operations):
     return operations_executed
 
 
+def status_canceled(operations):
+    """Возвращает список с отменёнными статусами"""
+    operations_canceled = []
+    for operation in operations:
+        if operation.get_state() == "CANCELED":
+            operations_canceled.append(operation)
+    return operations_canceled
+
+
 def sort_date(operations):
-    """Сортирует список по дате"""
+    """Сортирует список по дате от новых к старым"""
     return sorted(operations, key=lambda x: (x.get_date() is not None, x.get_date()), reverse=True)
 
 
 def first_five_operations(operations):
-    """Вернёт первые пять операций"""
+    """Вернёт первые пять операций методом среза"""
     return operations[:5]
 
 
@@ -79,9 +88,8 @@ def str_operations(operations):
     """Вернет запрашиваемый формат"""
     result = ""
     for operation in operations:
-        result += operation.get_date_form() + " " + operation.get_description() + "\n"
+        result += "\n" + operation.get_date_form() + " " + operation.get_description() + "\n"
         result += operation.get_from_operation_mask() + " -> " + operation.get_to_operation_mask() + "\n"
-        result += operation.get_operationAmount().get_amount() + " " + operation.get_operationAmount().get_currency_get_name() + "\n\n"
+        result += operation.get_operation_amount().get_amount() + " " \
+                  + operation.get_operation_amount().get_currency_get_name() + "\n"
     return result
-
-
