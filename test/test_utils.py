@@ -1,5 +1,5 @@
-from main.classes.Class_Operations import Operation
-from main.utils import load_file_json, load_operation_json, status_executed, sort_date, first_five_operations, \
+from src.classes.Class_Operations import Operation
+from src.utils import load_file_json, load_operation_json, status_executed, sort_date, first_five_operations, \
     str_operations
 
 
@@ -108,12 +108,78 @@ def test_real_first_five_operations():
     assert load[2].get_state() == "EXECUTED"
     assert load[0].id == 1
 
+def test_get_to_operation_mask():
+    """Тестирование  функции str_operations"""
+    operation = first_five_operations(sort_date(status_executed(load_operation_json(load_file_json()))))
+
+    assert operation is not None
+
+    operation[1].set_to_operation(None)
+    operation[2].set_to_operation("96527012349577388613")
+    operation[3].set_to_operation("")
+    operation[4].set_to_operation("Счет")
+    operation[0].set_to_operation("Visa Platinum 8990922113665229")
+
+    assert operation[0].get_to_operation_mask() == 'Visa Platinum 8990 92** **** 5229'
+    assert operation[1].get_to_operation_mask() == 'Нет данных'
+    assert operation[2].get_to_operation_mask() == 'Счет **8613'
+    assert operation[3].get_to_operation_mask() == 'Нет данных'
+    assert operation[4].get_to_operation_mask() == 'Нет данных'
+
+
+
+def test_get_from_operation_mask():
+    """Тестирование  функции str_operations"""
+    operation = first_five_operations(sort_date(status_executed(load_operation_json(load_file_json()))))
+
+    assert operation is not None
+
+    operation[1].set_from_operation(None)
+    operation[2].set_from_operation("96527012349577388613")
+    operation[3].set_from_operation("")
+    operation[4].set_from_operation("Счет")
+    operation[0].set_from_operation("Visa Platinum 8990922113665229")
+
+    assert operation[0].get_from_operation_mask() == 'Visa Platinum 8990 92** **** 5229'
+    assert operation[1].get_from_operation_mask() == 'Открытие вклада'
+    assert operation[2].get_from_operation_mask() == 'Счет **8613'
+    assert operation[3].get_from_operation_mask() == 'Открытие вклада'
+    assert operation[4].get_from_operation_mask() == 'Открытие вклада'
+
+def test_get_from_operation_mask_v2():
+    """Тестирование  функции str_operations"""
+    operation = first_five_operations(sort_date(status_executed(load_operation_json(load_file_json()))))
+
+    assert operation is not None
+
+    assert operation[0].get_from_operation_mask() == 'Открытие вклада'
+    assert operation[1].get_from_operation_mask() == 'Visa Classic 2842 87** **** 9012'
+    assert operation[2].get_from_operation_mask() == 'Maestro 7810 84** **** 5568'
+    assert operation[3].get_from_operation_mask() == 'Счет **9794'
+    assert operation[4].get_from_operation_mask() == 'Открытие вклада'
+
 
 def test_str_operations():
+
     """Тестирование  функции str_operations"""
-    str = str_operations(first_five_operations(sort_date(status_executed(load_operation_json(load_file_json())))))
+    str = str_operations(sort_date((load_operation_json(load_file_json()))))
 
     assert str is not None
+
+
+def test_str_operations_v2():
+    """Тестирование  функции str_operations"""
+    str_opera = str_operations(first_five_operations(sort_date(status_executed(load_operation_json(load_file_json())))))
+
+    assert str_opera is not None
+    assert "21344.35 руб." in str_opera
+    assert "Счет **9794 -> Счет **8125" in str_opera
+    assert "19.11.2019 Перевод организации" in str_opera
+    assert "BYN" not in str_opera
     print("\n")
-    print(str)
+    print(str_opera)
+
+
+
+
 

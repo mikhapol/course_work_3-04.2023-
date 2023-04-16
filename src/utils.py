@@ -3,9 +3,9 @@ import json  # импортирование json
 # импортирование функций из других файлов
 from datetime import datetime
 from data.conf import FILE_JSON
-from main.classes.Class_Currency import Currency
-from main.classes.Class_OperationAmount import OperationAmount
-from main.classes.Class_Operations import Operation
+from src.classes.Class_Currency import Currency
+from src.classes.Class_OperationAmount import OperationAmount
+from src.classes.Class_Operations import Operation
 
 
 # ФУНКЦИИ
@@ -67,7 +67,7 @@ def status_executed(operations):
 
 def sort_date(operations):
     """Сортирует список по дате"""
-    return sorted(operations, key=lambda x: (x.date is not None, x.date), reverse=True)
+    return sorted(operations, key=lambda x: (x.get_date() is not None, x.get_date()), reverse=True)
 
 
 def first_five_operations(operations):
@@ -76,11 +76,12 @@ def first_five_operations(operations):
 
 
 def str_operations(operations):
-    """Вернет запрашиваемый формат последних 5 операций"""
+    """Вернет запрашиваемый формат"""
     result = ""
     for operation in operations:
-        result += operation.get_date_form() + " " + operation.description + "\n"
-        # result += operation.get_from_operation() + " -> " + operation.get_to_operation() + "\n"
+        result += operation.get_date_form() + " " + operation.get_description() + "\n"
         result += operation.get_from_operation_mask() + " -> " + operation.get_to_operation_mask() + "\n"
-        result += operation.operationAmount.get_amount() + " " + operation.operationAmount.currency.get_name() + "\n\n"
+        result += operation.get_operationAmount().get_amount() + " " + operation.get_operationAmount().get_currency_get_name() + "\n\n"
     return result
+
+
