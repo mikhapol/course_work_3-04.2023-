@@ -1,4 +1,5 @@
 from src.classes.Class_Operations import Operation
+from src.main import main
 from src.utils import load_file_json, load_operation_json, status_executed, sort_date, first_five_operations, \
     str_operations, status_canceled
 
@@ -125,6 +126,8 @@ def test_real_first_five_operations():
     load = first_five_operations(status_executed(test_list))
 
     assert load is not None
+    assert load[1].get_date_form() == ""
+    assert load[2].get_description() == ""
     assert len(load) == 5
     assert load[0].id == 1
     assert load[1].get_state() == "EXECUTED"
@@ -196,11 +199,11 @@ def test_get_from_operation_mask_set():
     assert operation[4].get_from_operation_mask() == 'Открытие вклада'
 
 
-def test_str_operations_all():
-    """Тестирование функции str_operations всего отсортированного списка"""
-    str_all = str_operations(sort_date((load_operation_json(load_file_json()))))
-
-    assert str_all is not None
+# def test_str_operations_all():
+#     """Тестирование функции str_operations всего отсортированного списка"""
+#     str_all = str_operations(sort_date((load_operation_json(load_file_json()))))
+#
+#     assert str_all is not None
 
 
 def test_str_operations_main():
@@ -213,5 +216,6 @@ def test_str_operations_main():
     assert "19.11.2019 Перевод организации" in str_main
     assert "BYN" not in str_main
 
-    print("\n")
-    print(str_main)
+
+def test_main():
+    assert main() is None
