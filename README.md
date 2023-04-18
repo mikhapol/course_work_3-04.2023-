@@ -1,3 +1,17 @@
+---------- coverage: platform win32, python 3.11.2-final-0 -----------
+Name                                   Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------
+src\__init__.py                            0      0   100%
+src\classes\Class_Currency.py              8      1    88%   9
+src\classes\Class_OperationAmount.py      14      2    86%   9, 17
+src\classes\Class_Operations.py           53      1    98%   72
+src\classes\__init__.py                    0      0   100%
+src\main.py                                4      0   100%
+src\utils.py                              50      0   100%
+--------------------------------------------------------------------
+TOTAL                                    129      4    97%
+
+
 # Курсовой проект по курсу «Основы backend-разработки»
 
 # Код для виджета «Операции по счетам»
