@@ -1,4 +1,6 @@
-from utils import *
+# from utils import *
+from src.utils import str_operations, first_five_operations, status_executed, load_file_json, sort_date, \
+    load_operation_json
 
 
 def main():

@@ -69,6 +69,6 @@ class Operation:
         return self.description
 
     def __repr__(self):
-        return f"Дата: self.date={self.date}, " \
+        return f"Дата: self.date={self.get_date_form()}, " \
                f"self.get_from_operation()={self.get_from_operation()}, " \
                f"self.get_to_operation()={self.get_to_operation()}"
